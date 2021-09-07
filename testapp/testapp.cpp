@@ -5,15 +5,15 @@
 
 const char* string_string(const char* str1, const char* str2)
 {
-	for (auto i = 0; i < strlen(str1); i++)
+	for (size_t i = 0; str1[i] != '\0'; i++)
 	{
 		auto iteration_result = true;
-		for (auto j = 0; j < strlen(str2); j++)
+		for (size_t j = 0; str2[j] != '\0'; j++)
 		{
 			auto ch1 = str1[i + j];
 			auto ch2 = str2[j];
 
-			if (ch1 == '\0' || ch2 == '\0')
+			if (ch1 == '\0')
 				return 0;
 
 			if (ch1 != ch2)
@@ -73,25 +73,56 @@ void string_replace(const char* str, const char* find, const char* replace)
 	}
 }
 
+void string_copy(const char* str1, const char* str2, size_t length = 0)
+{
+	auto need_watch_length = length > 0;
+	for (size_t i = 0; i < str2[i] != '\0'; i++)
+	{
+		*(char*)(str1 + i) = str2[i];
+		if (str2[i + 1] == '\0')
+			*(char*)(str1 + i + 1) = '\0';
+		if (need_watch_length && i > (length - 1))
+		{
+			*(char*)(str1 + i + 1) = '\0';
+			break;
+		}
+	}
+}
+
+const char* boolalpha(bool result)
+{
+	return result ? "true" : "false";
+}
+
 int main()
 {
 	auto example_str = "kajdiy ohotnik jelaet znat' gde sidit fazan";
 
-	printf("%s\n", example_str);
+	printf("%s\n\n", example_str);
 
 	auto string_string_result = string_string(example_str, "jelaet");
-	printf("string string result: va = %p, string from va = %s\n", string_string_result, string_string_result);
+	printf("string string result:\t\t\t\t va = 0x%p, string from va = %s\n", string_string_result, string_string_result);
 
-	printf("string compare result: %d\n", string_compare(example_str, "kajdiy ohotnik jelaet znat' gde sidit fazan"));
+	printf("string compare result:\t\t\t\t %s\n", boolalpha(string_compare(example_str, "kajdiy ohotnik jelaet znat' gde sidit fazan")));
 
-	printf("string length result: %d\n" , strlen(example_str));
+	printf("string length result:\t\t\t\t %d\n" , strlen(example_str));
 
 	char* str = new char[strlen(example_str)];
 	strcpy(str, example_str);
 
 	string_replace(str, "jelaet", "ne jelaet");
 
-	printf("string replace result: %s\n", str);
+	printf("string replace result:\t\t\t\t %s\n", str);
+
+	string_copy(str, "ohotnik idet domoy ibo ystal");
+
+	printf("string copy result:\t\t\t\t %s\n", str);
+
+	string_copy(str, "ohotnik idet !!! no ne hochet kopirovat' bolee 12 simvolov", 12);
+
+	printf("string copy from first 12 symbols result:\t %s\n", str);
+
+	printf("\n");
 
 	system("pause");
 
