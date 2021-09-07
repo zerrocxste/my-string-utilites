@@ -30,7 +30,7 @@ const char* string_string(const char* str1, const char* str2)
 
 bool string_compare(const char* str1, const char* str2)
 {
-	int i = 0;
+	size_t i = 0;
 	while (true)
 	{
 		auto is_first_valid = str1[i] != '\0';
@@ -50,9 +50,9 @@ bool string_compare(const char* str1, const char* str2)
 	return true;
 }
 
-int string_length(const char* str)
+size_t string_length(const char* str)
 {
-	int i = 0;
+	size_t i = 0;
 	while (str[i] != '\0')
 		i++;
 	return i;
