@@ -81,7 +81,7 @@ void string_copy(const char* str1, const char* str2, size_t length = 0)
 		*(char*)(str1 + i) = str2[i];
 		if (str2[i + 1] == '\0')
 			*(char*)(str1 + i + 1) = '\0';
-		if (need_watch_length && i > (length - 1))
+		if (need_watch_length && i > (length - 2))
 		{
 			*(char*)(str1 + i + 1) = '\0';
 			break;
@@ -98,10 +98,10 @@ int main()
 {
 	auto example_str = "kajdiy ohotnik jelaet znat' gde sidit fazan";
 
-	printf("%s\n\n", example_str);
+	printf("\"%s\"\n\n", example_str);
 
 	auto string_string_result = string_string(example_str, "jelaet");
-	printf("string string result:\t\t\t\t va = 0x%p, string from va = %s\n", string_string_result, string_string_result);
+	printf("string string result:\t\t\t\t va = 0x%p, string from va = \"%s\"\n", string_string_result, string_string_result);
 
 	printf("string compare result:\t\t\t\t %s\n", boolalpha(string_compare(example_str, "kajdiy ohotnik jelaet znat' gde sidit fazan")));
 
@@ -112,15 +112,15 @@ int main()
 
 	string_replace(str, "jelaet", "ne jelaet");
 
-	printf("string replace result:\t\t\t\t %s\n", str);
+	printf("string replace result:\t\t\t\t \"%s\"\n", str);
 
 	string_copy(str, "ohotnik idet domoy ibo ystal");
 
-	printf("string copy result:\t\t\t\t %s\n", str);
+	printf("string copy result:\t\t\t\t \"%s\"\n", str);
 
 	string_copy(str, "ohotnik idet !!! no ne hochet kopirovat' bolee 12 simvolov", 12);
 
-	printf("string copy from first 12 symbols result:\t %s\n", str);
+	printf("string copy from first 12 symbols result:\t \"%s\"\n", str);
 
 	printf("\n");
 
